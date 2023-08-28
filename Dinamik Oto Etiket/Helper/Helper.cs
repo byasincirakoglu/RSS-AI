@@ -13,7 +13,7 @@ namespace Dinamik_Oto_Etiket.Helper
     {
         public static void InitialData(DataGridView view) 
         {
-            view.DataSource = DbConnection.RunSql("SELECT CARI_ISIM,CARI_ILCE,CARI_KOD,CARI_TEL,CARI_IL,CARI_ADRES,S_YEDEK2 FROM TBLCASABIT WHERE CARI_KOD LIKE 'ZZD%'");
+            view.DataSource = DbConnection.RunSql("SELECT  dbo.turkceyok(CARI_ILCE) as CARI_ILCE ,   dbo.turkceyok(CARI_ISIM) as CARI_ISIM,CARI_KOD,CARI_TEL,dbo.turkceyok(CARI_IL) as CARI_IL, dbo.turkceyok(CARI_ADRES) as CARI_ADRES ,S_YEDEK2 FROM TBLCASABIT WHERE CARI_KOD LIKE 'ZZD%'");
         }
     }
 }
