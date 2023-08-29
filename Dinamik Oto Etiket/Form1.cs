@@ -218,6 +218,7 @@ namespace Dinamik_Oto_Etiket
                 string cariİsim = selectedRow["CARI_ISIM"].ToString();
                
                 string htmlTemplate = @"
+           
                  <html>
             <head>
             <style>
@@ -225,13 +226,16 @@ namespace Dinamik_Oto_Etiket
                 size: 300mm 200mm landscape; /* çıktı boyutları */
                 margin: 0; /* Kenar boşluklarını sıfırlayın */
             }
+
             body {
                 font-family: Arial, sans-serif;
-                        background-image: url('arkaplan-resmi.jpg');
-                        background-size: cover;
-                        margin: 0;
-                        padding: 20px;
-            }
+
+                 background-repeat: no-repeat;
+                 margin: 0;
+                 padding: 20px;
+                 background-image: url('file:///C:/Users/beratcirakoglu/Desktop/etiket%20tasar%C4%B1m/Ads%C4%B1z%20tasar%C4%B1m.jpg');
+                background-size: 600px 400px; /* Genişlik: 800 piksel, Yükseklik: 600 piksel */
+                                }  
               
             .row {
                 margin-bottom: 10px;
@@ -253,10 +257,27 @@ namespace Dinamik_Oto_Etiket
                 display: table;
                 clear: both;
             }
+.divider {
+                border-top: 3px solid black;
+                width: 100%;
+                margin: 5px 0;
+                box-sizing: border-box;
+                display: none;
+            }
+            @media screen {
+                .divider {
+                    display: block;
+                }
+            }
+            @media print {
+                .divider {
+                    display: block;
+                }
+            }
             </style>
             </head>
             <body>
-                
+               
             
                 <div class='row'>
                     <strong>DİNAMİK OTOMOTİV GIDA TEKS.İTH.İHR.SAN.TİC LTD.ŞTİ</strong>
@@ -296,6 +317,19 @@ namespace Dinamik_Oto_Etiket
             </body>
             </html>
             ";
+                // Yazdırma stilini ekleyin
+                string printStyle = @"
+            <style>
+            @media print {
+                body {
+                    background: none !important;
+                    -webkit-print-color-adjust: exact;
+                }
+            }
+            </style>
+            ";
+                // HTML şablonunu oluşturun
+                string completeHtml = htmlTemplate + printStyle;
 
                 string Filepath = @"C:\ETIKET\" + Guid.NewGuid() + ".html";
                 File.WriteAllText(Filepath, htmlTemplate, Encoding.UTF8);
