@@ -301,7 +301,7 @@ namespace Dinamik_Oto_Etiket
 
             
                 <div class='row'>
-                    <strong>ALICI:" + cariİsim + @"</strong>  <strong>   
+                   <div style=""width: 500px !important; font-size: 15px;font-weight: bold;"">  ADRES:  " + cariİsim + @"</div>
                 </div>
                 <div class='row'>
                     <div style=""width: 500px !important; font-size: 18px;font-weight: bold;"">  ADRES:  " + cariAdres + @"</div>
