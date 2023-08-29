@@ -216,7 +216,7 @@ namespace Dinamik_Oto_Etiket
                 string cariAdres = selectedRow["CARI_ADRES"].ToString();
                 string cariIlce = selectedRow["CARI_ILCE"].ToString();
                 string cariİsim = selectedRow["CARI_ISIM"].ToString();
-                
+               
                 string htmlTemplate = @"
                  <html>
             <head>
@@ -227,45 +227,16 @@ namespace Dinamik_Oto_Etiket
             }
             body {
                 font-family: Arial, sans-serif;
+                        background-image: url('arkaplan-resmi.jpg');
+                        background-size: cover;
+                        margin: 0;
+                        padding: 20px;
             }
-            .section {
-                border: 3px solid black;
-                padding: 20px;
-                margin-bottom: 10px;
-                background-color: white;
-                margin: 0; /* Çerçeve arasında boşluk kalmayacak */
-                margin-left: 0.5cm; /* Çerçeve ve içerikleri 1 cm sola kaydır */
-                margin-top: 0.8cm; /* Çerçeve ve içerikleri 0.5 cm aşağı kaydır */
-                width: 290mm; /* Çerçevenin genişliği */
-                height: auto; /* Çerçevenin yüksekliği otomatik olarak ayarlanacak */
-                display: flex;
-                flex-direction: column;
-                max-width: 85%; /* ÇERÇEVE MAKSÜMÜM GENİŞLİĞİNİ AYARLAMA  */
-                margin-top: -0.35cm; /* Çerçeveleri yukarı kaydırma */
-
-            }
-                   
-                /* Çerçevelerin içeriğini yukarı kaydırma */
-                .section .row strong {
-                    margin-top: -1cm; /* İçeriği yukarı kaydırma değerini ayarlayın */
-                }
-             /* İkinci çerçevenin yukarı kaydırılması */
-                 .section:nth-child(2) {
-                  margin-top: -0.80cm; /* Çerçevenin yukarı kaydırılması için değeri ayarlayın */
-                   }
-                        /* Sadece 1. çerçevenin üst tarafını aşağı kaydırma */
-                        .section:nth-child(1) {
-                            margin-top: 0.58cm; /* İçeriği aşağı kaydırma değerini ayarlayın */
-                        }
-                    
-
-                     
-                   
-
-
-
+              
             .row {
                 margin-bottom: 10px;
+                transform: translateY(10mm); /* bütün içerikleri aşağı veya yukarı kaydırma yukarı kaydırmak için - değer ver */
+                transform: translateX(0mm); /* 1 cm sağa kaydırma */
             }
             strong {
                 font-weight: bold;
@@ -285,9 +256,11 @@ namespace Dinamik_Oto_Etiket
             </style>
             </head>
             <body>
-            <div class='section'>
+                
+            
                 <div class='row'>
                     <strong>DİNAMİK OTOMOTİV GIDA TEKS.İTH.İHR.SAN.TİC LTD.ŞTİ</strong>
+              
                 </div>
                 <div class='row'>
                  <strong>   FERHATPAŞA MAH ÜSKÜDAR CAD G15 SOK. NO:148</strong>
@@ -301,14 +274,16 @@ namespace Dinamik_Oto_Etiket
                 <div class='row'>
                    <strong>  Faks: 0(216) 661 04 14</strong>
                 </div>
+                <div class='divider' style='border-top: 3px solid black; width: 80%; margin: 5px 0;'></div> <!-- Çizgi Ekleniyor -->
             </div>
+                  
 
-            <div class='section'>
+            
                 <div class='row'>
                     <strong>ALICI:" + cariİsim + @"</strong>  <strong>   
                 </div>
                 <div class='row'>
-                    <div style=""width: 500px !important; font-size: 13px;font-weight: bold;"">  ADRES:  " + cariAdres + @"</div>
+                    <div style=""width: 500px !important; font-size: 18px;font-weight: bold;"">  ADRES:  " + cariAdres + @"</div>
                 </div>
                 <div class='row'>
                  <strong>   TEL: " + cariTel + @"</strong>

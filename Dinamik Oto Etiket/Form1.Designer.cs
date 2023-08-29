@@ -45,17 +45,17 @@ namespace Dinamik_Oto_Etiket
             this.dataSet1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.OnizlemeButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnArama = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtArama = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtArama = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnArama = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.OnizlemeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1BindingSource)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // directorySearcher1
@@ -70,10 +70,10 @@ namespace Dinamik_Oto_Etiket
             this.btnAramaKod.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAramaKod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAramaKod.ForeColor = System.Drawing.Color.White;
-            this.btnAramaKod.Location = new System.Drawing.Point(430, 48);
+            this.btnAramaKod.Location = new System.Drawing.Point(514, 47);
             this.btnAramaKod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAramaKod.Name = "btnAramaKod";
-            this.btnAramaKod.Size = new System.Drawing.Size(101, 37);
+            this.btnAramaKod.Size = new System.Drawing.Size(98, 37);
             this.btnAramaKod.TabIndex = 19;
             this.btnAramaKod.Text = "ARA";
             this.btnAramaKod.UseVisualStyleBackColor = false;
@@ -84,11 +84,11 @@ namespace Dinamik_Oto_Etiket
             this.txtAramaKod.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.txtAramaKod.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtAramaKod.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtAramaKod.Location = new System.Drawing.Point(182, 48);
+            this.txtAramaKod.Location = new System.Drawing.Point(182, 47);
             this.txtAramaKod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtAramaKod.Multiline = true;
             this.txtAramaKod.Name = "txtAramaKod";
-            this.txtAramaKod.Size = new System.Drawing.Size(242, 37);
+            this.txtAramaKod.Size = new System.Drawing.Size(326, 37);
             this.txtAramaKod.TabIndex = 18;
             this.txtAramaKod.TextChanged += new System.EventHandler(this.txtAramaKod_TextChanged);
             this.txtAramaKod.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAramaKod_KeyDown);
@@ -121,111 +121,6 @@ namespace Dinamik_Oto_Etiket
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1902, 1033);
             this.tableLayoutPanel1.TabIndex = 21;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 6;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.59228F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.91556F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.90712F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.58504F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 369F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 167F));
-            this.tableLayoutPanel2.Controls.Add(this.btnAramaKod, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.txtAramaKod, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.txtArama, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnArama, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.OnizlemeButton, 5, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 2);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1365, 115);
-            this.tableLayoutPanel2.TabIndex = 13;
-            this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
-            // 
-            // OnizlemeButton
-            // 
-            this.OnizlemeButton.BackColor = System.Drawing.Color.Black;
-            this.OnizlemeButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.OnizlemeButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.OnizlemeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.OnizlemeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.OnizlemeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OnizlemeButton.ForeColor = System.Drawing.Color.White;
-            this.OnizlemeButton.Location = new System.Drawing.Point(1201, 2);
-            this.OnizlemeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.OnizlemeButton.Name = "OnizlemeButton";
-            this.OnizlemeButton.Size = new System.Drawing.Size(161, 42);
-            this.OnizlemeButton.TabIndex = 20;
-            this.OnizlemeButton.Text = "ÖNİZLEME";
-            this.OnizlemeButton.UseVisualStyleBackColor = false;
-            this.OnizlemeButton.Click += new System.EventHandler(this.OnizlemeButton1_Click1);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Black;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(3, 46);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(173, 41);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "CARİ KOD";
-            // 
-            // btnArama
-            // 
-            this.btnArama.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnArama.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnArama.ForeColor = System.Drawing.Color.White;
-            this.btnArama.Location = new System.Drawing.Point(430, 2);
-            this.btnArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnArama.Name = "btnArama";
-            this.btnArama.Size = new System.Drawing.Size(101, 42);
-            this.btnArama.TabIndex = 14;
-            this.btnArama.Text = "ARA";
-            this.btnArama.UseVisualStyleBackColor = false;
-            this.btnArama.Click += new System.EventHandler(this.btnArama_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Black;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(173, 46);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "CARİ İSİM";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // txtArama
-            // 
-            this.txtArama.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.txtArama.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtArama.Location = new System.Drawing.Point(182, 2);
-            this.txtArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtArama.Multiline = true;
-            this.txtArama.Name = "txtArama";
-            this.txtArama.Size = new System.Drawing.Size(242, 42);
-            this.txtArama.TabIndex = 13;
-            this.txtArama.TextChanged += new System.EventHandler(this.txtArama_TextChanged);
-            this.txtArama.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtArama_KeyDown);
-            this.txtArama.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtArama_KeyUp);
             // 
             // dataGridView1
             // 
@@ -281,11 +176,116 @@ namespace Dinamik_Oto_Etiket
             this.dataGridView1.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(2349, 951);
+            this.dataGridView1.Size = new System.Drawing.Size(1896, 909);
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.Tag = "";
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             this.dataGridView1.Resize += new System.EventHandler(this.Form1_Resize);
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 6;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.24503F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.50331F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.652686F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.59897F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 514F));
+            this.tableLayoutPanel2.Controls.Add(this.btnAramaKod, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.txtAramaKod, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.txtArama, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnArama, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.OnizlemeButton, 5, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1896, 114);
+            this.tableLayoutPanel2.TabIndex = 13;
+            this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
+            // 
+            // txtArama
+            // 
+            this.txtArama.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.txtArama.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtArama.Location = new System.Drawing.Point(182, 2);
+            this.txtArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtArama.Multiline = true;
+            this.txtArama.Name = "txtArama";
+            this.txtArama.Size = new System.Drawing.Size(326, 41);
+            this.txtArama.TabIndex = 13;
+            this.txtArama.TextChanged += new System.EventHandler(this.txtArama_TextChanged);
+            this.txtArama.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtArama_KeyDown);
+            this.txtArama.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtArama_KeyUp);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Black;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(173, 45);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "CARİ İSİM";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // btnArama
+            // 
+            this.btnArama.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnArama.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnArama.ForeColor = System.Drawing.Color.White;
+            this.btnArama.Location = new System.Drawing.Point(514, 2);
+            this.btnArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnArama.Name = "btnArama";
+            this.btnArama.Size = new System.Drawing.Size(98, 41);
+            this.btnArama.TabIndex = 14;
+            this.btnArama.Text = "ARA";
+            this.btnArama.UseVisualStyleBackColor = false;
+            this.btnArama.Click += new System.EventHandler(this.btnArama_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Black;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(3, 45);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(173, 41);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "CARİ KOD";
+            // 
+            // OnizlemeButton
+            // 
+            this.OnizlemeButton.BackColor = System.Drawing.Color.Black;
+            this.OnizlemeButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.OnizlemeButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.OnizlemeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.OnizlemeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.OnizlemeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OnizlemeButton.ForeColor = System.Drawing.Color.White;
+            this.OnizlemeButton.Location = new System.Drawing.Point(1383, 2);
+            this.OnizlemeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OnizlemeButton.Name = "OnizlemeButton";
+            this.OnizlemeButton.Size = new System.Drawing.Size(510, 41);
+            this.OnizlemeButton.TabIndex = 20;
+            this.OnizlemeButton.Text = "ÖNİZLEME";
+            this.OnizlemeButton.UseVisualStyleBackColor = false;
+            this.OnizlemeButton.Click += new System.EventHandler(this.OnizlemeButton1_Click1);
             // 
             // Form
             // 
@@ -311,9 +311,9 @@ namespace Dinamik_Oto_Etiket
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1BindingSource)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
