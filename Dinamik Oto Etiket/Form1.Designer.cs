@@ -119,7 +119,7 @@ namespace Dinamik_Oto_Etiket
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1368, 574);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1902, 1033);
             this.tableLayoutPanel1.TabIndex = 21;
             // 
             // tableLayoutPanel2
@@ -294,13 +294,17 @@ namespace Dinamik_Oto_Etiket
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(47)))), ((int)(((byte)(47)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(1368, 574);
+            this.ClientSize = new System.Drawing.Size(1902, 1033);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.PanNW;
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1920, 1080);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1080, 960);
             this.Name = "Form";
             this.Text = "DİNAMİK OTOMOTİV ETİKET";
             this.TransparencyKey = System.Drawing.Color.DarkGray;
