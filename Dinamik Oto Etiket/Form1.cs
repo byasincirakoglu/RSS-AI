@@ -173,17 +173,17 @@ namespace Dinamik_Oto_Etiket
             txtAramaKod.SelectionStart = txtAramaKod.Text.Length; // Cursor'ı metin sonuna taşı
         }
 
-        private void btnAramaKod_Click(object sender, EventArgs e)
+        private void btnCari_KodArama_Click(object sender, EventArgs e)
         {
             string arananMetin = txtAramaKod.Text;
-            string filterSql = "";
-            if (!string.IsNullOrEmpty(arananMetin))
-            {
-                filterSql = "AND CARI_KOD LIKE '%" + arananMetin + "%'";
-            }
 
-            DataTable filteredTable = DbConnection.RunSql("SELECT  dbo.turkceyok(CARI_KOD) as CARI_KOD ,   dbo.turkceyok(CARI_ISIM) as CARI_ISIM,dbo.turkceyok(CARI_ADRES) as CARI_ADRES,  dbo.turkceyok(CARI_IL) as CARI_IL ,dbo.turkceyok(CARI_ILCE) as CARI_ILCE,CARI_TEL  FROM TBLCASABIT WHERE CARI_KOD LIKE 'ZZD%' " + filterSql);
+            // Aranan metin uzunluğuna kadar filtreleme yapmak için
+            string filterSql = "AND LEFT(CARI_KOD, " + arananMetin.Length + ") = '" + arananMetin + "'";
+
+            // İlk 25 satırı getirerek sorguyu düzenle
+            DataTable filteredTable = DbConnection.RunSql("SELECT TOP 25 dbo.turkceyok(CARI_KOD) as CARI_KOD, dbo.turkceyok(CARI_ISIM) as CARI_ISIM, dbo.turkceyok(CARI_ADRES) as CARI_ADRES, dbo.turkceyok(CARI_IL) as CARI_IL, dbo.turkceyok(CARI_ILCE) as CARI_ILCE, CARI_TEL FROM TBLCASABIT WHERE 1=1 " + filterSql);
             dataGridView1.DataSource = filteredTable;
+
             // Arama sonrası metin kutusunu temizle
             txtAramaKod.Text = string.Empty;
         }
@@ -368,7 +368,7 @@ namespace Dinamik_Oto_Etiket
             {
                 e.Handled = true;
                 e.SuppressKeyPress = true; // Enter tuşunun varsayılan davranışını engelle
-                btnAramaKod_Click(sender, e); // Ara butonunun tıklama olayını tetikle
+                btnCari_KodArama_Click(sender, e); // Ara butonunun tıklama olayını tetikle
             }
         }
 

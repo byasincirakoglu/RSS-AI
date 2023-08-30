@@ -77,7 +77,7 @@ namespace Dinamik_Oto_Etiket
             this.btnCari_KodArama.TabIndex = 19;
             this.btnCari_KodArama.Text = "ARA";
             this.btnCari_KodArama.UseVisualStyleBackColor = false;
-            this.btnCari_KodArama.Click += new System.EventHandler(this.btnAramaKod_Click);
+            this.btnCari_KodArama.Click += new System.EventHandler(this.btnCari_KodArama_Click);
             // 
             // txtAramaKod
             // 
