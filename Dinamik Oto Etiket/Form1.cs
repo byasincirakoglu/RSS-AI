@@ -181,6 +181,7 @@ namespace Dinamik_Oto_Etiket
             {
                 filterSql = "AND CARI_KOD LIKE '%" + arananMetin + "%'";
             }
+
             DataTable filteredTable = DbConnection.RunSql("SELECT  dbo.turkceyok(CARI_KOD) as CARI_KOD ,   dbo.turkceyok(CARI_ISIM) as CARI_ISIM,dbo.turkceyok(CARI_ADRES) as CARI_ADRES,  dbo.turkceyok(CARI_IL) as CARI_IL ,dbo.turkceyok(CARI_ILCE) as CARI_ILCE,CARI_TEL  FROM TBLCASABIT WHERE CARI_KOD LIKE 'ZZD%' " + filterSql);
             dataGridView1.DataSource = filteredTable;
             // Arama sonrası metin kutusunu temizle
@@ -206,8 +207,8 @@ namespace Dinamik_Oto_Etiket
             this.selectedRow = ((DataRowView)dataGridView1.Rows[e.RowIndex].DataBoundItem).Row;
             dataGridView1.Invalidate();
             dataGridView1.Refresh();
-            
 
+            Console.WriteLine(e.RowIndex.ToString());
 
 
         }
@@ -380,7 +381,16 @@ namespace Dinamik_Oto_Etiket
         {
 
         }
-       
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.selectedRow = ((DataRowView)dataGridView1.Rows[e.RowIndex].DataBoundItem).Row;
+            dataGridView1.Invalidate();
+            dataGridView1.Refresh();
+
+            Console.WriteLine(e.RowIndex.ToString());
+
+        }
     }
     }
 

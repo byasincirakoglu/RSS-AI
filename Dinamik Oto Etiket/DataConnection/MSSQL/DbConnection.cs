@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -21,8 +22,23 @@ namespace Dinamik_Oto_Etiket.DataConnection.MSSQL
                 command.CommandText = sql;
                 command.CommandType = CommandType.Text;
                 DataTable dt = new DataTable();
-                connection.Open();
-                dt.Load(command.ExecuteReader());
+                try
+                {
+                    connection.Open();
+                }
+                catch(Exception ex) 
+                {
+                    MessageBox.Show("Connection Sağlanmadı" + "-----"+sql+"-------" + ex.Message);
+                }
+
+                try
+                {
+                    dt.Load(command.ExecuteReader());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Tablo Doldurulamadı" + "-----" + sql + "-------" + ex.Message);
+                }
                 connection.Close();
                 return dt;
             }

@@ -73,7 +73,7 @@ namespace Dinamik_Oto_Etiket
             this.btnCari_KodArama.Location = new System.Drawing.Point(545, 49);
             this.btnCari_KodArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCari_KodArama.Name = "btnCari_KodArama";
-            this.btnCari_KodArama.Size = new System.Drawing.Size(112, 40);
+            this.btnCari_KodArama.Size = new System.Drawing.Size(111, 40);
             this.btnCari_KodArama.TabIndex = 19;
             this.btnCari_KodArama.Text = "ARA";
             this.btnCari_KodArama.UseVisualStyleBackColor = false;
@@ -179,6 +179,7 @@ namespace Dinamik_Oto_Etiket
             this.dataGridView1.Size = new System.Drawing.Size(1896, 909);
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.Tag = "";
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             this.dataGridView1.Resize += new System.EventHandler(this.Form1_Resize);
             // 
@@ -190,7 +191,7 @@ namespace Dinamik_Oto_Etiket
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.717238F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.16948F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 517F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 520F));
             this.tableLayoutPanel2.Controls.Add(this.btnCari_KodArama, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.txtAramaKod, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.txt_Cari_Arama, 1, 0);
@@ -249,7 +250,7 @@ namespace Dinamik_Oto_Etiket
             this.btnCari_IsımArama.Location = new System.Drawing.Point(545, 2);
             this.btnCari_IsımArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCari_IsımArama.Name = "btnCari_IsımArama";
-            this.btnCari_IsımArama.Size = new System.Drawing.Size(112, 43);
+            this.btnCari_IsımArama.Size = new System.Drawing.Size(111, 43);
             this.btnCari_IsımArama.TabIndex = 14;
             this.btnCari_IsımArama.Text = "ARA";
             this.btnCari_IsımArama.UseVisualStyleBackColor = false;
@@ -278,10 +279,10 @@ namespace Dinamik_Oto_Etiket
             this.OnizlemeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.OnizlemeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OnizlemeButton.ForeColor = System.Drawing.Color.White;
-            this.OnizlemeButton.Location = new System.Drawing.Point(1379, 2);
+            this.OnizlemeButton.Location = new System.Drawing.Point(1377, 2);
             this.OnizlemeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OnizlemeButton.Name = "OnizlemeButton";
-            this.OnizlemeButton.Size = new System.Drawing.Size(514, 43);
+            this.OnizlemeButton.Size = new System.Drawing.Size(516, 43);
             this.OnizlemeButton.TabIndex = 20;
             this.OnizlemeButton.Text = "ÖNİZLEME";
             this.OnizlemeButton.UseVisualStyleBackColor = false;
