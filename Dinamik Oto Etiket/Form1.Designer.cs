@@ -40,17 +40,17 @@ namespace Dinamik_Oto_Etiket
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.btnAramaKod = new System.Windows.Forms.Button();
+            this.btnCari_KodArama = new System.Windows.Forms.Button();
             this.txtAramaKod = new System.Windows.Forms.TextBox();
             this.dataSet1BindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.txtArama = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnArama = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.txt_Cari_Arama = new System.Windows.Forms.TextBox();
+            this.cari_isimLabel = new System.Windows.Forms.Label();
+            this.btnCari_IsımArama = new System.Windows.Forms.Button();
+            this.cari_KodLabel = new System.Windows.Forms.Label();
             this.OnizlemeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1BindingSource)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -64,31 +64,31 @@ namespace Dinamik_Oto_Etiket
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
             // 
-            // btnAramaKod
+            // btnCari_KodArama
             // 
-            this.btnAramaKod.BackColor = System.Drawing.Color.Black;
-            this.btnAramaKod.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAramaKod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAramaKod.ForeColor = System.Drawing.Color.White;
-            this.btnAramaKod.Location = new System.Drawing.Point(547, 49);
-            this.btnAramaKod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnAramaKod.Name = "btnAramaKod";
-            this.btnAramaKod.Size = new System.Drawing.Size(112, 40);
-            this.btnAramaKod.TabIndex = 19;
-            this.btnAramaKod.Text = "ARA";
-            this.btnAramaKod.UseVisualStyleBackColor = false;
-            this.btnAramaKod.Click += new System.EventHandler(this.btnAramaKod_Click);
+            this.btnCari_KodArama.BackColor = System.Drawing.Color.Black;
+            this.btnCari_KodArama.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCari_KodArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCari_KodArama.ForeColor = System.Drawing.Color.White;
+            this.btnCari_KodArama.Location = new System.Drawing.Point(545, 49);
+            this.btnCari_KodArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCari_KodArama.Name = "btnCari_KodArama";
+            this.btnCari_KodArama.Size = new System.Drawing.Size(112, 40);
+            this.btnCari_KodArama.TabIndex = 19;
+            this.btnCari_KodArama.Text = "ARA";
+            this.btnCari_KodArama.UseVisualStyleBackColor = false;
+            this.btnCari_KodArama.Click += new System.EventHandler(this.btnAramaKod_Click);
             // 
             // txtAramaKod
             // 
             this.txtAramaKod.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.txtAramaKod.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtAramaKod.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtAramaKod.Location = new System.Drawing.Point(275, 49);
+            this.txtAramaKod.Location = new System.Drawing.Point(274, 49);
             this.txtAramaKod.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtAramaKod.Multiline = true;
             this.txtAramaKod.Name = "txtAramaKod";
-            this.txtAramaKod.Size = new System.Drawing.Size(266, 40);
+            this.txtAramaKod.Size = new System.Drawing.Size(265, 40);
             this.txtAramaKod.TabIndex = 18;
             this.txtAramaKod.TextChanged += new System.EventHandler(this.txtAramaKod_TextChanged);
             this.txtAramaKod.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAramaKod_KeyDown);
@@ -190,13 +190,13 @@ namespace Dinamik_Oto_Etiket
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.717238F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.16948F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 516F));
-            this.tableLayoutPanel2.Controls.Add(this.btnAramaKod, 2, 1);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 517F));
+            this.tableLayoutPanel2.Controls.Add(this.btnCari_KodArama, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.txtAramaKod, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.txtArama, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnArama, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.txt_Cari_Arama, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cari_isimLabel, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnCari_IsımArama, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cari_KodLabel, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.OnizlemeButton, 5, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
@@ -210,64 +210,64 @@ namespace Dinamik_Oto_Etiket
             this.tableLayoutPanel2.TabIndex = 13;
             this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
             // 
-            // txtArama
+            // txt_Cari_Arama
             // 
-            this.txtArama.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.txtArama.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtArama.Location = new System.Drawing.Point(275, 2);
-            this.txtArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtArama.Multiline = true;
-            this.txtArama.Name = "txtArama";
-            this.txtArama.Size = new System.Drawing.Size(266, 43);
-            this.txtArama.TabIndex = 13;
-            this.txtArama.TextChanged += new System.EventHandler(this.txtArama_TextChanged);
-            this.txtArama.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtArama_KeyDown);
-            this.txtArama.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtArama_KeyUp);
+            this.txt_Cari_Arama.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.txt_Cari_Arama.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Cari_Arama.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txt_Cari_Arama.Location = new System.Drawing.Point(274, 2);
+            this.txt_Cari_Arama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txt_Cari_Arama.Multiline = true;
+            this.txt_Cari_Arama.Name = "txt_Cari_Arama";
+            this.txt_Cari_Arama.Size = new System.Drawing.Size(265, 43);
+            this.txt_Cari_Arama.TabIndex = 13;
+            this.txt_Cari_Arama.TextChanged += new System.EventHandler(this.txtArama_TextChanged);
+            this.txt_Cari_Arama.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtArama_KeyDown);
+            this.txt_Cari_Arama.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtArama_KeyUp);
             // 
-            // label2
+            // cari_isimLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Black;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(266, 47);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "CARİ İSİM";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.cari_isimLabel.AutoSize = true;
+            this.cari_isimLabel.BackColor = System.Drawing.Color.Black;
+            this.cari_isimLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.cari_isimLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cari_isimLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cari_isimLabel.ForeColor = System.Drawing.Color.White;
+            this.cari_isimLabel.Location = new System.Drawing.Point(3, 0);
+            this.cari_isimLabel.Name = "cari_isimLabel";
+            this.cari_isimLabel.Size = new System.Drawing.Size(265, 47);
+            this.cari_isimLabel.TabIndex = 16;
+            this.cari_isimLabel.Text = "CARİ İSİM";
+            this.cari_isimLabel.Click += new System.EventHandler(this.label2_Click);
             // 
-            // btnArama
+            // btnCari_IsımArama
             // 
-            this.btnArama.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnArama.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnArama.ForeColor = System.Drawing.Color.White;
-            this.btnArama.Location = new System.Drawing.Point(547, 2);
-            this.btnArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnArama.Name = "btnArama";
-            this.btnArama.Size = new System.Drawing.Size(112, 43);
-            this.btnArama.TabIndex = 14;
-            this.btnArama.Text = "ARA";
-            this.btnArama.UseVisualStyleBackColor = false;
-            this.btnArama.Click += new System.EventHandler(this.btnArama_Click);
+            this.btnCari_IsımArama.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnCari_IsımArama.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCari_IsımArama.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCari_IsımArama.ForeColor = System.Drawing.Color.White;
+            this.btnCari_IsımArama.Location = new System.Drawing.Point(545, 2);
+            this.btnCari_IsımArama.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCari_IsımArama.Name = "btnCari_IsımArama";
+            this.btnCari_IsımArama.Size = new System.Drawing.Size(112, 43);
+            this.btnCari_IsımArama.TabIndex = 14;
+            this.btnCari_IsımArama.Text = "ARA";
+            this.btnCari_IsımArama.UseVisualStyleBackColor = false;
+            this.btnCari_IsımArama.Click += new System.EventHandler(this.btnArama_Click);
             // 
-            // label3
+            // cari_KodLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Black;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(3, 47);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(266, 44);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "CARİ KOD";
+            this.cari_KodLabel.AutoSize = true;
+            this.cari_KodLabel.BackColor = System.Drawing.Color.Black;
+            this.cari_KodLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.cari_KodLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cari_KodLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cari_KodLabel.ForeColor = System.Drawing.Color.White;
+            this.cari_KodLabel.Location = new System.Drawing.Point(3, 47);
+            this.cari_KodLabel.Name = "cari_KodLabel";
+            this.cari_KodLabel.Size = new System.Drawing.Size(265, 44);
+            this.cari_KodLabel.TabIndex = 20;
+            this.cari_KodLabel.Text = "CARİ KOD";
             // 
             // OnizlemeButton
             // 
@@ -278,10 +278,10 @@ namespace Dinamik_Oto_Etiket
             this.OnizlemeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.OnizlemeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OnizlemeButton.ForeColor = System.Drawing.Color.White;
-            this.OnizlemeButton.Location = new System.Drawing.Point(1382, 2);
+            this.OnizlemeButton.Location = new System.Drawing.Point(1379, 2);
             this.OnizlemeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OnizlemeButton.Name = "OnizlemeButton";
-            this.OnizlemeButton.Size = new System.Drawing.Size(511, 43);
+            this.OnizlemeButton.Size = new System.Drawing.Size(514, 43);
             this.OnizlemeButton.TabIndex = 20;
             this.OnizlemeButton.Text = "ÖNİZLEME";
             this.OnizlemeButton.UseVisualStyleBackColor = false;
@@ -326,17 +326,17 @@ namespace Dinamik_Oto_Etiket
 
         #endregion
         private System.DirectoryServices.DirectorySearcher directorySearcher1;
-        private System.Windows.Forms.Button btnAramaKod;
+        private System.Windows.Forms.Button btnCari_KodArama;
         private System.Windows.Forms.TextBox txtAramaKod;
         private System.Windows.Forms.BindingSource dataSet1BindingSource;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label cari_KodLabel;
         private System.Windows.Forms.Button OnizlemeButton;
-        private System.Windows.Forms.TextBox txtArama;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnArama;
+        private System.Windows.Forms.TextBox txt_Cari_Arama;
+        private System.Windows.Forms.Label cari_isimLabel;
+        private System.Windows.Forms.Button btnCari_IsımArama;
         private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
