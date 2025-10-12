@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Dict, Optional, Tuple
 
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import load_settings, save_settings
@@ -31,6 +31,7 @@ from .storage import (
     exists_article,
     list_reports,
     get_report,
+    delete_report,
 )
 from .rss_service import fetch_feed
 from .extractor import extract_from_url
@@ -185,6 +186,9 @@ def do_fetch_once(force: bool = False) -> FetchResponse:
     settings = load_settings()
     ai = _build_ai_client(settings)
     tg = _build_telegram_client(settings)
+    push_mode = getattr(settings.telegram, "push_mode", "all")
+    push_articles = push_mode in ("all", "article_only")
+    push_reports = push_mode in ("all", "report_only")
 
     new_items = 0
     processed = 0
@@ -311,7 +315,7 @@ def do_fetch_once(force: bool = False) -> FetchResponse:
                     logging.info(f"新文章入库: {article.title} ({row_id})")
                     prune_articles(settings.fetch.max_items)
                     # send to telegram
-                    if tg is not None and keywords_matched:
+                    if tg is not None and keywords_matched and push_articles:
                         text = _format_telegram_message(ai_obj, matched_keywords)
                         ok = tg.send_message(settings.telegram.chat_id, text, parse_mode="HTML", disable_web_page_preview=False)
                         logging.info(f"推送Telegram: {'成功' if ok else '失败'}")
@@ -323,7 +327,7 @@ def do_fetch_once(force: bool = False) -> FetchResponse:
         logging.info(f"汇总 {feed}: 新增 {new_items}，重复 {dup}，本次处理 {len(entries)} 条")
         duplicates += dup
     # 抓取汇总后报告到 Telegram（可选）
-    if tg is not None and settings.telegram.push_summary:
+    if tg is not None and push_reports:
         summary_lines = [
             "<b>RSS-AI 抓取汇总</b>",
             f"RSS 源：{feeds_count} 个",
@@ -509,6 +513,13 @@ def api_generate_report(req: ReportGenerateRequest):
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
     return report
+
+
+@app.delete("/api/reports/{report_id}", status_code=204)
+def api_delete_report(report_id: int):
+    if not delete_report(report_id):
+        raise HTTPException(status_code=404, detail="Report not found")
+    return Response(status_code=204)
 
 
 def run():

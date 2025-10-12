@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import List, Optional, Literal
-from pydantic import BaseModel, Field, HttpUrl
+from pydantic import BaseModel, Field, HttpUrl, model_validator
 
 
 class HealthResponse(BaseModel):
@@ -44,7 +44,21 @@ class SettingsTelegram(BaseModel):
     enabled: bool = False
     bot_token: str = ""
     chat_id: str = ""
-    push_summary: bool = False
+    push_mode: Literal["all", "article_only", "report_only"] = "all"
+
+    @model_validator(mode="before")
+    @classmethod
+    def _migrate_push_mode(cls, values):
+        if isinstance(values, dict):
+            current = values.get("push_mode")
+            if current not in {"all", "article_only", "report_only"}:
+                if values.get("push_summary") is True:
+                    values["push_mode"] = "all"
+                elif values.get("push_summary") is False:
+                    values["push_mode"] = "article_only"
+                else:
+                    values["push_mode"] = "all"
+        return values
 
 
 class SettingsReports(BaseModel):

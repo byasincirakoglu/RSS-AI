@@ -190,7 +190,10 @@ def generate_report(
         f"生成{label}完成：时间段 {timeframe_display}，文章 {article_count} 篇，ID={report_id}"
     )
 
-    if telegram_client is not None and settings.telegram.enabled:
+    push_mode = getattr(settings.telegram, "push_mode", "all")
+    push_reports = push_mode in ("all", "report_only")
+
+    if telegram_client is not None and settings.telegram.enabled and push_reports:
         header = f"RSS-AI {label}"
         body_lines = [
             header,
