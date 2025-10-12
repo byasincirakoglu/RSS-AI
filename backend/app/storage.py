@@ -259,3 +259,9 @@ def get_report(report_id: int) -> Optional[ReportInDB]:
     with _connect() as conn:
         row = conn.execute("SELECT * FROM reports WHERE id = ?", (report_id,)).fetchone()
         return ReportInDB(**dict(row)) if row else None
+
+
+def delete_report(report_id: int) -> bool:
+    with _connect() as conn:
+        cur = conn.execute("DELETE FROM reports WHERE id = ?", (report_id,))
+        return cur.rowcount > 0

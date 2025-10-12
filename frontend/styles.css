@@ -123,15 +123,16 @@ body {
 [data-theme="light"] .utility-btn.theme-toggle:hover { background: #f1f5f9; }
 
 .mobile-tab-switch {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   padding: var(--pill-track-padding);
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 999px;
   gap: 4px;
-  margin: 0 auto 16px;
-  width: fit-content;
+  margin: 0 0 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 .segment-switch {
   display: inline-flex;
@@ -166,6 +167,16 @@ body {
   cursor: pointer;
   white-space: nowrap;
   transition: background .2s ease, color .2s ease, transform .08s ease;
+}
+.segment-switch.push-mode-switch {
+  width: 100%;
+  box-sizing: border-box;
+}
+.segment-switch.push-mode-switch .segment-option {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 6px 12px;
+  white-space: normal;
 }
 .segment-option:focus-visible,
 .mobile-tab-option:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
@@ -239,7 +250,7 @@ main { max-width: 980px; margin: 0 auto; padding: 24px 16px 80px; }
 .title { font-weight: 600; margin: 0 0 6px; }
 .title.clickable { cursor: pointer; }
 .meta { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
-.summary { line-height: 1.6; color: var(--summary); }
+.summary { line-height: 1.6; color: var(--summary); overflow-wrap: anywhere; word-break: break-word; }
 .link { color: var(--accent); text-decoration: none; }
 .link:hover { text-decoration: underline; }
 
@@ -279,6 +290,9 @@ select:focus-visible {
 .switch { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
 .ghost { background: transparent; color: var(--fg); border: 1px solid var(--border); padding: 6px 10px; border-radius: 8px; cursor: pointer; }
 .actions-row { display:flex; gap:10px; align-items:center; margin-top: 8px; }
+.actions-row.report-actions { justify-content: flex-end; }
+.ghost.danger { color: #dc2626; border-color: rgba(220,38,38,0.5); }
+.ghost.danger:hover { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.8); }
 mark { background: var(--mark-bg); color: var(--fg); padding: 0 2px; border-radius: 3px; }
 
 /* 骨架屏 */

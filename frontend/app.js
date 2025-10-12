@@ -23,6 +23,7 @@ let state = {
   reportTotal: 0,
   reportTypeFilter: 'hourly',
   reportGenerating: { hourly: false, daily: false },
+  telegramPushMode: 'all',
 };
 
 function updateThemeToggle(theme) {
@@ -64,6 +65,19 @@ function updateReportFilterUI(filter) {
     const isActive = btn.dataset.reportFilter === filter;
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
+}
+
+function updateTelegramPushModeUI(mode) {
+  const validModes = ['all', 'article_only', 'report_only'];
+  const nextMode = validModes.includes(mode) ? mode : 'all';
+  state.telegramPushMode = nextMode;
+  const hidden = q('#tgPushMode');
+  if (hidden) hidden.value = nextMode;
+  qa('[data-push-mode]').forEach(btn => {
+    const isActive = btn.dataset.pushMode === nextMode;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 }
 
@@ -191,7 +205,7 @@ async function loadSettings() {
   q('#tgEnabled').checked = !!s.telegram.enabled;
   q('#tgToken').value = ''; // 安全：不回显
   q('#tgChatId').value = s.telegram.chat_id || '';
-  q('#tgPushSummary').checked = !!s.telegram.push_summary;
+  updateTelegramPushModeUI(s.telegram.push_mode || 'all');
 
   q('#reportHourly').checked = !!(s.reports?.hourly_enabled);
   q('#reportDaily').checked = !!(s.reports?.daily_enabled);
@@ -244,7 +258,7 @@ function gatherSettingsFromForm() {
       enabled: q('#tgEnabled').checked,
       bot_token: q('#tgToken').value.trim() || '***',
       chat_id: q('#tgChatId').value.trim(),
-      push_summary: q('#tgPushSummary').checked,
+      push_mode: q('#tgPushMode')?.value || 'all',
     },
     reports: {
       hourly_enabled: q('#reportHourly').checked,
@@ -354,6 +368,27 @@ async function triggerReport(reportType) {
   }
 }
 
+async function handleDeleteReport(reportId) {
+  if (!Number.isInteger(reportId)) return;
+  const confirmed = window.confirm('确定删除该报告吗？');
+  if (!confirmed) {
+    return;
+  }
+  try {
+    await api(`/api/reports/${reportId}`, { method: 'DELETE' });
+    toast('报告已删除');
+    state.reportTotal = Math.max(0, state.reportTotal - 1);
+    const maxPage = Math.max(0, Math.ceil(state.reportTotal / state.reportPageSize) - 1);
+    if (state.reportPage > maxPage) {
+      state.reportPage = maxPage;
+    }
+    await loadReports();
+  } catch (err) {
+    console.error(err);
+    toast(err.message || '删除失败');
+  }
+}
+
 function renderReports() {
   const root = q('#reportsList');
   if (!root) return;
@@ -374,11 +409,21 @@ function renderReports() {
       <h3 class="title">${escapeHtml(report.title)}</h3>
       <div class="meta">类型：${typeLabel} · 时间范围：${escapeHtml(start)} ~ ${escapeHtml(end)} · 文章：${report.article_count}</div>
       <div class="summary">${escapeHtml(report.summary_text).replace(/\n/g,'<br/>')}</div>
+      <div class="actions-row report-actions">
+        <button class="ghost danger" data-report-delete="${report.id}">删除该报告</button>
+      </div>
     `;
     root.appendChild(el);
   });
   const pages = Math.ceil(state.reportTotal / state.reportPageSize) || 1;
   q('#reportPageInfo').textContent = `${state.reportPage + 1} / ${pages}`;
+  qa('[data-report-delete]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const value = parseInt(btn.dataset.reportDelete, 10);
+      if (Number.isNaN(value)) return;
+      handleDeleteReport(value);
+    });
+  });
 }
 
 // 搜索高亮功能已移除
@@ -427,6 +472,16 @@ function bindEvents() {
       applyTheme(next);
     });
   }
+  const pushModeBtns = qa('[data-push-mode]');
+  if (pushModeBtns.length) {
+    pushModeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mode = btn.dataset.pushMode;
+        if (!mode || mode === state.telegramPushMode) return;
+        updateTelegramPushModeUI(mode);
+      });
+    });
+  }
   const reportFilterBtns = qa('[data-report-filter]');
   if (reportFilterBtns.length) {
     reportFilterBtns.forEach(btn => {
@@ -467,6 +522,8 @@ function bindEvents() {
   if (generateDaily) {
     generateDaily.addEventListener('click', () => triggerReport('daily'));
   }
+
+  updateTelegramPushModeUI(state.telegramPushMode);
 
   // 显示/隐藏返回顶部（移动端更友好）
   const onScroll = () => {

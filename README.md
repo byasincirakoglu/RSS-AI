@@ -203,7 +203,7 @@ telegram:
   enabled: false
   bot_token: YOUR_TELEGRAM_BOT_TOKEN
   chat_id: "@your_channel_or_chat_id"
-  push_summary: false   # 是否推送抓取汇总
+  push_mode: all        # 推送内容：all=全部推送、article_only=只推送文章、report_only=只推送定时汇总
 
 reports:
   daily_enabled: true             # 是否生成每日汇总报告
@@ -222,7 +222,7 @@ logging:
 
 - AI 接口为 OpenAI 兼容格式（`/v1/chat/completions`），你可替换 `base_url` 与 `model` 指向任意兼容服务。
 - 前端“设置”页支持在线更新以上配置。为安全起见，`api_key` 与 `bot_token` 在界面不回显；若不修改请留空，后端会保留旧值。
-- 若开启 `telegram.push_summary`，每次抓取结束后会发送一条汇总消息，包含：源数量、获取条目、入库成功、重复跳过、处理失败、AI 调用次数（成功/失败）、Token 消耗；有助于监控运行状态与用量。
+- `telegram.push_mode` 控制推送范围：`all` 为发送文章和定时汇总，`article_only` 仅推送文章，`report_only` 仅推送定时汇总。
 - 报告任务可通过 `reports` 模块配置是否启用每日/每小时汇总，并自定义提示词模板；生成的报告同样会写入数据库与日志，便于二次处理或对接其他通知渠道。
 - 自定义提示词：
   - System Prompt 与 User Prompt 模板均可在前端“AI 设置”中修改并保存。
