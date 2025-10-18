@@ -34,14 +34,18 @@
   - `pubDate` 发布时间
   - `author` 作者
   - `summary_text` AI 中文总结
+- 文章搜索：前端支持按标题、AI 摘要以及抓取到的原文内容全文检索，可在列表顶部快速查找历史文章，并提供一键清空。
+- 原文预览：文章详情弹窗新增“原文内容”区块，可直接查看抓取的正文文本，方便核对摘要是否准确。
 - 关键词过滤与标注：支持在配置中维护关键词列表，仅保留命中关键词的文章；命中的关键词会同步展示在 Web 列表、弹窗与 Telegram 推送，方便快速定位关注点（英文匹配区分大小写）。
 - 去重与存储：使用 SQLite 本地存储，基于 `feed_url + item_uid` 唯一约束去重；可配置最大存储条数，自动裁剪旧数据。
 - 单源抓取上限：可为每个 RSS 源设置“单次抓取最多处理 N 条”，按时间倒序优先（越新越先处理）。
-- Telegram 推送：将 AI 总结以精简排版推送到指定群组或频道。
-- 抓取汇总推送（可选）：可将每次抓取的汇总信息（条目总数、入库成功/重复/失败、AI 调用成功/失败次数、Token 消耗等）推送到 Telegram。
+- Telegram 推送：将 AI 总结以精简排版推送到指定群组或频道，支持单独控制文章推送与抓取汇总推送。
+- 抓取汇总推送（可选）：可将每次抓取的汇总信息（条目总数、入库成功/重复/失败、AI 调用成功/失败次数、Token 消耗等）推送到 Telegram，可在设置页一键关闭。
 - 标准 API：提供 RESTful 接口与 `/docs` Swagger UI。
 - 前端管理：查看摘要列表、手动抓取、在线修改配置（无需重启服务）。
- - 可自定义提示词：支持自定义 System Prompt 与 User Prompt 模板（可用 {title}、{link}、{pub_date}、{author}、{content} 占位符）。
+  - 可自定义提示词：支持自定义 System Prompt 与 User Prompt 模板（可用 {title}、{link}、{pub_date}、{author}、{content} 占位符）。
+  - 支持设置 AI 调用超时，按需延长或收紧每次请求的最大等待时间。
+  - Telegram 设置页新增“抓取完成后推送统计汇总”开关，可按需关闭尾部汇总消息。
 - 安全校验：保存设置需输入 4 位数字管理密码（默认 `1234`，可在设置页通过旧密码更新）。
 
 ## 目录结构
@@ -187,6 +191,7 @@ ai:                      # OpenAI 通用格式
   api_key: YOUR_API_KEY
   model: gpt-4o-mini
   temperature: 0.2
+  timeout_seconds: 30     # 单次AI请求超时（秒），范围 5-300，可根据模型响应速度调整
   system_prompt: |
     你是一个中文内容编辑助手。请对RSS文章进行信息抽取与高质量中文摘要，并输出严格的JSON对象，字段必须为：title, link, pubDate, author, summary_text。其中：title为原文标题或优化后的标题；link为原始URL；pubDate为发布时间（原文给出即可）；author为作者（若未知可留空字符串）；summary_text为简洁、条理清晰的段落式中文总结。务必只输出JSON，不要任何解释或markdown。
   user_prompt_template: |
@@ -204,6 +209,7 @@ telegram:
   bot_token: YOUR_TELEGRAM_BOT_TOKEN
   chat_id: "@your_channel_or_chat_id"
   push_mode: all        # 推送内容：all=全部推送、article_only=只推送文章、report_only=只推送定时汇总
+  push_summary: true    # 抓取完成后是否推送统计汇总消息
 
 reports:
   daily_enabled: true             # 是否生成每日汇总报告
@@ -223,6 +229,7 @@ logging:
 - AI 接口为 OpenAI 兼容格式（`/v1/chat/completions`），你可替换 `base_url` 与 `model` 指向任意兼容服务。
 - 前端“设置”页支持在线更新以上配置。为安全起见，`api_key` 与 `bot_token` 在界面不回显；若不修改请留空，后端会保留旧值。
 - `telegram.push_mode` 控制推送范围：`all` 为发送文章和定时汇总，`article_only` 仅推送文章，`report_only` 仅推送定时汇总。
+- `telegram.push_summary` 控制抓取流程结束后是否推送统计汇总消息。
 - 报告任务可通过 `reports` 模块配置是否启用每日/每小时汇总，并自定义提示词模板；生成的报告同样会写入数据库与日志，便于二次处理或对接其他通知渠道。
 - 自定义提示词：
   - System Prompt 与 User Prompt 模板均可在前端“AI 设置”中修改并保存。
