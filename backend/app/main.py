@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Dict, Optional, Tuple
 
 import uvicorn
-from fastapi import FastAPI, HTTPException, Response
+from fastapi import FastAPI, HTTPException, Query, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import load_settings, save_settings
@@ -76,6 +76,7 @@ def _build_ai_client(settings: AppSettings) -> Optional[AIClient]:
             api_key=settings.ai.api_key,
             model=settings.ai.model,
             temperature=settings.ai.temperature,
+            timeout=float(settings.ai.timeout_seconds),
         )
     return None
 
@@ -189,6 +190,7 @@ def do_fetch_once(force: bool = False) -> FetchResponse:
     push_mode = getattr(settings.telegram, "push_mode", "all")
     push_articles = push_mode in ("all", "article_only")
     push_reports = push_mode in ("all", "report_only")
+    push_summary_enabled = getattr(settings.telegram, "push_summary", True)
 
     new_items = 0
     processed = 0
@@ -305,6 +307,7 @@ def do_fetch_once(force: bool = False) -> FetchResponse:
                 link=e.link,
                 pub_date=ai_obj.get("pubDate") or e.pub_date,
                 author=ai_obj.get("author") or e.author,
+                content_text=content_source,
                 summary_text=ai_obj.get("summary_text") or "",
                 matched_keywords=matched_keywords,
             )
@@ -327,7 +330,7 @@ def do_fetch_once(force: bool = False) -> FetchResponse:
         logging.info(f"汇总 {feed}: 新增 {new_items}，重复 {dup}，本次处理 {len(entries)} 条")
         duplicates += dup
     # 抓取汇总后报告到 Telegram（可选）
-    if tg is not None and push_reports:
+    if tg is not None and push_reports and push_summary_enabled:
         summary_lines = [
             "<b>RSS-AI 抓取汇总</b>",
             f"RSS 源：{feeds_count} 个",
@@ -405,6 +408,8 @@ def get_settings():
         safe.ai.system_prompt = defaults.ai.system_prompt
     if not (safe.ai.user_prompt_template and safe.ai.user_prompt_template.strip()):
         safe.ai.user_prompt_template = defaults.ai.user_prompt_template
+    if not safe.ai.timeout_seconds:
+        safe.ai.timeout_seconds = defaults.ai.timeout_seconds
     if not (safe.reports.system_prompt and safe.reports.system_prompt.strip()):
         safe.reports.system_prompt = defaults.reports.system_prompt
     if not (safe.reports.user_prompt_template and safe.reports.user_prompt_template.strip()):
@@ -438,6 +443,8 @@ def update_settings(req: UpdateSettingsRequest):
         new_settings.ai.system_prompt = defaults.ai.system_prompt
     if not (new_settings.ai.user_prompt_template and new_settings.ai.user_prompt_template.strip()):
         new_settings.ai.user_prompt_template = defaults.ai.user_prompt_template
+    if not new_settings.ai.timeout_seconds:
+        new_settings.ai.timeout_seconds = defaults.ai.timeout_seconds
     if not (new_settings.reports.system_prompt and new_settings.reports.system_prompt.strip()):
         new_settings.reports.system_prompt = defaults.reports.system_prompt
     if not (new_settings.reports.user_prompt_template and new_settings.reports.user_prompt_template.strip()):
@@ -473,8 +480,13 @@ def fetch_now(req: FetchRequest):
 
 
 @app.get("/api/articles", response_model=ArticleListResponse)
-def api_list_articles(limit: int = 20, offset: int = 0, feed: Optional[str] = None):
-    total, items = list_articles(limit=limit, offset=offset, feed_url=feed)
+def api_list_articles(
+    limit: int = 20,
+    offset: int = 0,
+    feed: Optional[str] = None,
+    q: Optional[str] = Query(default=None, alias="q", min_length=1, max_length=200),
+):
+    total, items = list_articles(limit=limit, offset=offset, feed_url=feed, query=q)
     return ArticleListResponse(total=total, items=items)
 
 

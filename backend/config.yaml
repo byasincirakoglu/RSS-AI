@@ -18,13 +18,14 @@ fetch:
   filter_keywords: []
   use_article_page: true
   article_timeout_seconds: 15
-  per_feed_limit: 1
+  per_feed_limit: 5
 ai:
   enabled: true
   base_url: https://api.openai.com/v1
   api_key: YOUR_API_KEY
   model: glm-4.6
   temperature: 0.2
+  timeout_seconds: 60
   system_prompt: '你是一个中文内容编辑助手。请对RSS文章进行信息抽取与高质量中文摘要，并输出严格的JSON对象，字段必须为：title, link,
     pubDate, author, summary_text。其中：title为原文标题或优化后的标题；link为原始URL；pubDate为发布时间（原文给出即可，如果不是北京时间需要转换成北京时间）；author为作者（若未知可留空字符串）；summary_text为简洁、条理清晰的段落式中文总结。务必只输出JSON，不要任何解释或markdown。
 
@@ -50,18 +51,15 @@ telegram:
   bot_token: "YOUR_TELEGRAM_BOT_TOKEN"
   chat_id: "@your_channel_or_chat_id"
   push_mode: all
+  push_summary: true
 reports:
   daily_enabled: true
   hourly_enabled: true
   report_timeout_seconds: 60
-  system_prompt: '你是一名资深中文资讯编辑，需要汇总给定时间范围内的RSS内容。
-请输出结构化的纯文本报告，包含以下部分：
-1. 概览：先给出文章总量，然后总结整体趋势、领域，一句话一行。
-2. 重点事件：列出2-6条最值得关注的资讯，每条1-2句话，每条标上序号。
-3. 一般事件：列出除重点事件外的资讯（重要的/影响越重大的）汇总成2-10条，每条1-2句话，其中 越重要的/影响越重大的 排名顺序越靠前，每条标上序号。
-4. 其他事件：列出除终点事件和一般事件外的、剩余的所有资讯，汇总成1-2段话，每段话30-50字。
-4. 数据统计：概括主要来源及数量，指出值得注意的变化。
-输出使用中文，避免Markdown或HTML。
+  system_prompt: '你是一名资深中文资讯编辑，需要汇总给定时间范围内的RSS内容。 请输出结构化的纯文本报告，包含以下部分： 1. 概览：先给出文章总量，然后总结整体趋势、领域，一句话一行。
+    2. 重点事件：列出2-6条最值得关注的资讯，每条1-2句话，每条标上序号。 3. 一般事件：列出除重点事件外的资讯（重要的/影响越重大的）汇总成2-10条，每条1-2句话，其中
+    越重要的/影响越重大的 排名顺序越靠前，每条标上序号。 4. 其他事件：列出除终点事件和一般事件外的、剩余的所有资讯，汇总成1-2段话，每段话30-50字。
+    4. 数据统计：概括主要来源及数量，指出值得注意的变化。 输出使用中文，避免Markdown或HTML。
 
 
     '

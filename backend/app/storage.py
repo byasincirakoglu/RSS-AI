@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import json
 import os
 import sqlite3
@@ -29,6 +30,7 @@ def init_db():
                 link TEXT NOT NULL,
                 pub_date TEXT,
                 author TEXT,
+                content_text TEXT,
                 summary_text TEXT NOT NULL,
                 matched_keywords TEXT,
                 created_at TEXT NOT NULL DEFAULT (datetime('now')),
@@ -44,6 +46,12 @@ def init_db():
         try:
             conn.execute(
                 "ALTER TABLE articles ADD COLUMN matched_keywords TEXT"
+            )
+        except sqlite3.OperationalError:
+            pass
+        try:
+            conn.execute(
+                "ALTER TABLE articles ADD COLUMN content_text TEXT"
             )
         except sqlite3.OperationalError:
             pass
@@ -86,8 +94,8 @@ def insert_article(article: ArticleCreate) -> Optional[int]:
         try:
             cur = conn.execute(
                 """
-                INSERT INTO articles (feed_url, item_uid, title, link, pub_date, author, summary_text, matched_keywords)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO articles (feed_url, item_uid, title, link, pub_date, author, content_text, summary_text, matched_keywords)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     article.feed_url,
@@ -96,6 +104,7 @@ def insert_article(article: ArticleCreate) -> Optional[int]:
                     article.link,
                     article.pub_date,
                     article.author,
+                    article.content_text,
                     article.summary_text,
                     json.dumps(article.matched_keywords, ensure_ascii=False) if article.matched_keywords else "[]",
                 ),
@@ -114,21 +123,37 @@ def exists_article(feed_url: str, item_uid: str) -> bool:
         return row is not None
 
 
-def list_articles(limit: int = 20, offset: int = 0, feed_url: Optional[str] = None) -> Tuple[int, List[ArticleInDB]]:
+def list_articles(
+    limit: int = 20,
+    offset: int = 0,
+    feed_url: Optional[str] = None,
+    query: Optional[str] = None,
+) -> Tuple[int, List[ArticleInDB]]:
     with _connect() as conn:
-        params = []
-        where = ""
+        params: list = []
+        where_clauses: list[str] = []
         if feed_url:
-            where = " WHERE feed_url = ?"
+            where_clauses.append("feed_url = ?")
             params.append(feed_url)
+        if query:
+            stripped = query.strip()
+            if stripped:
+                terms = [term for term in re.split(r"\s+", stripped) if term]
+                for term in terms:
+                    like = f"%{term}%"
+                    where_clauses.append(
+                        "(title LIKE ? OR summary_text LIKE ? OR COALESCE(content_text, '') LIKE ?)"
+                    )
+                    params.extend([like, like, like])
+        where_sql = f" WHERE {' AND '.join(where_clauses)}" if where_clauses else ""
 
-        total_row = conn.execute(f"SELECT COUNT(*) as c FROM articles{where}", params).fetchone()
+        total_row = conn.execute(f"SELECT COUNT(*) as c FROM articles{where_sql}", params).fetchone()
         total = int(total_row[0]) if total_row else 0
 
         params2 = list(params)
         params2.extend([limit, offset])
         rows = conn.execute(
-            f"SELECT * FROM articles{where} ORDER BY id DESC LIMIT ? OFFSET ?",
+            f"SELECT * FROM articles{where_sql} ORDER BY id DESC LIMIT ? OFFSET ?",
             params2,
         ).fetchall()
         items = [_row_to_article(r) for r in rows]
@@ -175,6 +200,8 @@ def _row_to_article(row: sqlite3.Row) -> ArticleInDB:
     if row is None:
         raise ValueError("row is None")
     data = dict(row)
+    if data.get("content_text") is None:
+        data["content_text"] = ""
     raw_keywords = data.get("matched_keywords")
     if isinstance(raw_keywords, str):
         try:

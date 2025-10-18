@@ -24,6 +24,7 @@ class SettingsAI(BaseModel):
     api_key: str = ""
     model: str = "gpt-4o-mini"
     temperature: float = 0.2
+    timeout_seconds: int = Field(30, ge=5, le=300)
     system_prompt: str = (
         "你是一个中文内容编辑助手。请对RSS文章进行信息抽取与高质量中文摘要，并输出严格的JSON对象，"
         "字段必须为：title, link, pubDate, author, summary_text。其中：title为原文标题或优化后的标题；"
@@ -45,6 +46,7 @@ class SettingsTelegram(BaseModel):
     bot_token: str = ""
     chat_id: str = ""
     push_mode: Literal["all", "article_only", "report_only"] = "all"
+    push_summary: bool = True
 
     @model_validator(mode="before")
     @classmethod
@@ -58,6 +60,8 @@ class SettingsTelegram(BaseModel):
                     values["push_mode"] = "article_only"
                 else:
                     values["push_mode"] = "all"
+            if "push_summary" not in values:
+                values["push_summary"] = True
         return values
 
 
@@ -118,6 +122,7 @@ class ArticleInDB(BaseModel):
     link: str
     pub_date: Optional[str] = None
     author: Optional[str] = None
+    content_text: str = ""
     summary_text: str
     matched_keywords: List[str] = Field(default_factory=list)
     created_at: str
@@ -130,6 +135,7 @@ class ArticleCreate(BaseModel):
     link: str
     pub_date: Optional[str] = None
     author: Optional[str] = None
+    content_text: str = ""
     summary_text: str
     matched_keywords: List[str] = Field(default_factory=list)
 

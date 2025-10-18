@@ -17,6 +17,7 @@ let state = {
   filterFeed: '',
   autoRefresh: false,
   autoTimer: null,
+  searchTerm: '',
   reports: [],
   reportPage: 0,
   reportPageSize: 10,
@@ -24,6 +25,7 @@ let state = {
   reportTypeFilter: 'hourly',
   reportGenerating: { hourly: false, daily: false },
   telegramPushMode: 'all',
+  telegramPushSummary: true,
 };
 
 function updateThemeToggle(theme) {
@@ -111,13 +113,17 @@ async function api(path, opts = {}) {
 
 async function loadArticles() {
   showSkeleton(true);
-  const offset = state.page * state.pageSize;
-  const feedParam = state.filterFeed ? `&feed=${encodeURIComponent(state.filterFeed)}` : '';
-  const data = await api(`/api/articles?limit=${state.pageSize}&offset=${offset}${feedParam}`);
-  state.items = data.items || [];
-  state.total = data.total || 0;
-  renderArticles();
-  showSkeleton(false);
+  try {
+    const offset = state.page * state.pageSize;
+    const feedParam = state.filterFeed ? `&feed=${encodeURIComponent(state.filterFeed)}` : '';
+    const queryParam = state.searchTerm ? `&q=${encodeURIComponent(state.searchTerm)}` : '';
+    const data = await api(`/api/articles?limit=${state.pageSize}&offset=${offset}${feedParam}${queryParam}`);
+    state.items = data.items || [];
+    state.total = data.total || 0;
+    renderArticles();
+  } finally {
+    showSkeleton(false);
+  }
 }
 
 function renderArticles() {
@@ -199,6 +205,7 @@ async function loadSettings() {
   q('#aiApiKey').value = ''; // 安全：不回显
   q('#aiModel').value = s.ai.model || '';
   q('#aiTemp').value = s.ai.temperature ?? 0.2;
+  q('#aiTimeout').value = s.ai.timeout_seconds ?? 30;
   q('#aiSystemPrompt').value = s.ai.system_prompt || '';
   q('#aiUserPrompt').value = s.ai.user_prompt_template || '';
 
@@ -206,6 +213,9 @@ async function loadSettings() {
   q('#tgToken').value = ''; // 安全：不回显
   q('#tgChatId').value = s.telegram.chat_id || '';
   updateTelegramPushModeUI(s.telegram.push_mode || 'all');
+  state.telegramPushSummary = s.telegram.push_summary !== false;
+  const tgPushSummary = q('#tgPushSummary');
+  if (tgPushSummary) tgPushSummary.checked = state.telegramPushSummary;
 
   q('#reportHourly').checked = !!(s.reports?.hourly_enabled);
   q('#reportDaily').checked = !!(s.reports?.daily_enabled);
@@ -234,6 +244,12 @@ function gatherSettingsFromForm() {
   } else {
     reportTimeout = Math.min(Math.max(reportTimeout, 10), 300);
   }
+  let aiTimeout = parseInt(q('#aiTimeout').value, 10);
+  if (!Number.isFinite(aiTimeout)) {
+    aiTimeout = 30;
+  } else {
+    aiTimeout = Math.min(Math.max(aiTimeout, 5), 300);
+  }
   return {
     server: current.server,
     fetch: {
@@ -251,6 +267,7 @@ function gatherSettingsFromForm() {
       api_key: q('#aiApiKey').value.trim() || '***',
       model: q('#aiModel').value.trim(),
       temperature: parseFloat(q('#aiTemp').value),
+      timeout_seconds: aiTimeout,
       system_prompt: q('#aiSystemPrompt').value,
       user_prompt_template: q('#aiUserPrompt').value,
     },
@@ -259,6 +276,7 @@ function gatherSettingsFromForm() {
       bot_token: q('#tgToken').value.trim() || '***',
       chat_id: q('#tgChatId').value.trim(),
       push_mode: q('#tgPushMode')?.value || 'all',
+      push_summary: q('#tgPushSummary')?.checked ?? true,
     },
     reports: {
       hourly_enabled: q('#reportHourly').checked,
@@ -444,6 +462,18 @@ async function openModal(id) {
     q('#modalMeta').textContent = metaParts.join(' · ');
     q('#modalSummary').innerHTML = escapeHtml(item.summary_text).replace(/\n/g,'<br/>');
     q('#modalLink').href = item.link;
+    const modalContent = q('#modalContent');
+    const modalContentSection = q('#modalContentSection');
+    if (modalContent && modalContentSection) {
+      const content = (item.content_text || '').trim();
+      if (content) {
+        modalContent.textContent = content;
+        modalContentSection.style.display = '';
+      } else {
+        modalContent.textContent = '';
+        modalContentSection.style.display = 'none';
+      }
+    }
     m.classList.add('show');
     document.body.classList.add('modal-open');
   } catch {}
@@ -454,6 +484,53 @@ function closeModal(){ q('#modal').classList.remove('show'); document.body.class
 function bindEvents() {
   q('#refreshBtn').addEventListener('click', manualFetch);
   q('#feedSelect').addEventListener('change', (e)=>{ state.filterFeed=e.target.value; state.page=0; loadArticles(); });
+  const searchInput = q('#searchInput');
+  const searchBtn = q('#searchBtn');
+  const searchClear = q('#searchClear');
+  const updateSearchControls = () => {
+    if (!searchClear) return;
+    const hasValue = searchInput && searchInput.value.trim().length > 0;
+    const shouldShow = hasValue || !!state.searchTerm;
+    searchClear.classList.toggle('visible', shouldShow);
+  };
+  const triggerSearch = () => {
+    if (!searchInput) return;
+    const value = searchInput.value.trim();
+    state.searchTerm = value;
+    state.page = 0;
+    loadArticles().catch(()=>{});
+    updateSearchControls();
+  };
+  if (searchInput) {
+    searchInput.value = state.searchTerm;
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        triggerSearch();
+      }
+    });
+    searchInput.addEventListener('input', updateSearchControls);
+    updateSearchControls();
+  }
+  if (searchBtn) {
+    searchBtn.addEventListener('click', triggerSearch);
+  }
+  if (searchClear) {
+    searchClear.addEventListener('click', () => {
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.focus();
+      }
+      if (!state.searchTerm) {
+        updateSearchControls();
+        return;
+      }
+      state.searchTerm = '';
+      state.page = 0;
+      loadArticles().catch(()=>{});
+      updateSearchControls();
+    });
+  }
   q('#prevPage').addEventListener('click', () => {
     if (state.page > 0) { state.page--; loadArticles(); }
   });
@@ -480,6 +557,12 @@ function bindEvents() {
         if (!mode || mode === state.telegramPushMode) return;
         updateTelegramPushModeUI(mode);
       });
+    });
+  }
+  const tgPushSummary = q('#tgPushSummary');
+  if (tgPushSummary) {
+    tgPushSummary.addEventListener('change', (e) => {
+      state.telegramPushSummary = !!e.target.checked;
     });
   }
   const reportFilterBtns = qa('[data-report-filter]');

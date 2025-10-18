@@ -193,16 +193,105 @@ main { max-width: 980px; margin: 0 auto; padding: 24px 16px 80px; }
   display: flex; align-items: center; gap: 12px; row-gap: 10px; margin-bottom: 16px;
   flex-wrap: wrap;
 }
-.toolbar-row { display: contents; }
-.toolbar .row2 { align-items: center; }
+.toolbar-row { width: 100%; }
+.toolbar .row1,
+.toolbar .row-search,
+.toolbar .row-actions {
+  display: flex;
+  width: 100%;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.toolbar .row-search,
+.toolbar .row-actions { margin-top: 4px; }
 .toolbar .select { flex: 1 1 220px; min-width: 160px; }
+.toolbar .search-input {
+  flex: 1 1 100%;
+  min-width: 220px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--fg);
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+  height: 40px;
+  line-height: 24px;
+}
+.toolbar .search-input:focus {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+  outline: none;
+}
+.toolbar .search-input::placeholder { color: var(--muted); }
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+.search-wrapper {
+  flex: 1 1 100%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.search-wrapper .search-field {
+  position: relative;
+  flex: 1 1 100%;
+  display: flex;
+}
+.search-wrapper .search-input { padding-right: 48px; }
+.search-wrapper .search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-wrapper .search-clear.visible {
+  opacity: .6;
+  pointer-events: auto;
+}
+.search-wrapper .search-clear:hover { opacity: 1; }
+.search-wrapper .search-clear:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  opacity: 1;
+}
+.search-wrapper .search-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  white-space: nowrap;
+  font-size: 16px;
+}
+.toolbar .row-actions #refreshBtn,
+.toolbar .row-actions .switch.as-btn,
+.toolbar .row-actions #statusText { flex: 0 0 auto; white-space: nowrap; }
 #statusText { margin-left: auto; color: var(--muted); font-size: 12px; }
 
 /* 主按钮（保持原有动画与风格） */
 .primary { background: var(--primary-btn-bg); color: var(--primary-btn-fg); border: none; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-weight: 600; transition: transform .08s ease; }
 .primary:active { transform: scale(.98); }
 /* 调整筛选行中“手动抓取”按钮的固定宽度 */
-.toolbar .row1 #refreshBtn { flex: 0 0 132px; text-align: center; }
+.toolbar .row-actions #refreshBtn { flex: 0 0 132px; text-align: center; }
 
 /* 将复选开关外观统一为按钮样式 */
 .switch.as-btn {
@@ -309,6 +398,9 @@ mark { background: var(--mark-bg); color: var(--fg); padding: 0 2px; border-radi
 .modal-header, .modal-footer { padding: 12px 14px; display:flex; align-items:center; justify-content: space-between; border-bottom: 1px solid var(--card-border); }
 .modal-footer { border-top: 1px solid var(--card-border); border-bottom: none; }
 .modal-body { padding: 12px 14px; overflow:auto; }
+.modal-section { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--card-border); }
+.modal-section .section-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 6px; letter-spacing: .2px; }
+.modal-section .original-body { font-size: 14px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; overflow-wrap: anywhere; }
 /* 标题布局：占满剩余空间并自动换行，避免被关闭按钮遮挡 */
 .modal-header h3 { flex: 1 1 auto; margin: 0; padding-right: 8px; overflow-wrap: anywhere; }
 
@@ -346,12 +438,15 @@ body.modal-open { overflow: hidden; }
   .tab-btn { min-height: 36px; }
   .toolbar { gap: 8px; }
   /* 让两行成为独立行 */
-  .toolbar .toolbar-row { display: flex; width: 100%; gap: 8px; }
-  /* 第一行：源选择 + 手动抓取 并排，选择器自适应占满剩余 */
+  .toolbar .row1,
+  .toolbar .row-search,
+  .toolbar .row-actions { gap: 8px; }
   .toolbar .row1 #feedSelect { flex: 1 1 auto; max-width: none; min-width: 0; }
-  /* 第二行：其余元素自然排布，状态靠右 */
-  .toolbar .row2 { align-items: center; }
-  .toolbar .row2 #statusText { margin-left: auto; text-align: right; font-size: 12px; }
+  .toolbar .row-search .search-wrapper { flex: 1 1 auto; min-width: 0; }
+  .toolbar .row-actions #refreshBtn,
+  .toolbar .row-actions .switch.as-btn { flex: 0 0 auto; }
+  .toolbar .row-actions #statusText { margin-left: auto; text-align: right; font-size: 12px; }
+  .search-wrapper { gap: 8px; }
   input, textarea, select { padding: 10px 12px; font-size: 16px; }
   .primary, .ghost, .pager button, .tab-btn { padding: 10px 12px; }
 }
