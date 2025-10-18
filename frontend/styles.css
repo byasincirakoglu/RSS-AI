@@ -235,10 +235,12 @@ input[type="search"]::-webkit-search-results-decoration {
   display: flex;
   gap: 12px;
   align-items: center;
+  min-width: 0;
 }
 .search-wrapper .search-field {
   position: relative;
-  flex: 1 1 100%;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
 }
 .search-wrapper .search-input { padding-right: 48px; }
@@ -277,6 +279,7 @@ input[type="search"]::-webkit-search-results-decoration {
   align-items: center;
   justify-content: center;
   height: 40px;
+  flex: 0 0 auto;
   padding: 0 16px;
   border-radius: 10px;
   white-space: nowrap;
@@ -423,6 +426,9 @@ body.modal-open { overflow: hidden; }
 /* 移动端适配 */
 @media (max-width: 900px) {
   main { padding: 20px 14px 84px; }
+}
+@media (max-width: 520px) {
+  .toolbar .search-input { min-width: 0; }
 }
 @media (max-width: 768px) {
   .header { flex-wrap: wrap; gap: 8px; }
