@@ -5,7 +5,7 @@
 – 后端：Python + FastAPI（含 OpenAPI/Swagger、详细日志、可热更新配置、后台定时任务）
 – 前端：黑白配色、简约高级的 Web 页面（查看摘要与在线修改配置）
 
-## 图片
+## 图片（最早期版本）
 
 
 <details>
@@ -67,6 +67,10 @@
 
 ## 快速开始
 
+0) 安全事项
+
+- 在公网部署时请注意**不要公开后端端口3601**，（/api/config 会原样返回 API Key，且 CORS 允许任意来源代码在启动时将 CORS allow_origins=["*"]；同时 GET /api/config 直接回传完整配置（含 openai.api_key）。这意味着只要能访问到你的后端，任意站点都能读取到密钥（浏览器 CORS 放行））
+
 1) 准备环境
 
 - Python 3.10+
@@ -100,7 +104,7 @@ PORT=3602 BACKEND_BASE_URL=http://127.0.0.1:3601 ./run.sh
 
 ## 使用 Docker 运行（推荐）
 
-### 使用 Docker Hub 预构建镜像
+### 方法一：使用 Docker Hub 预构建镜像
 
 已在 Docker Hub 发布官方镜像，可直接拉取并运行：
 
@@ -133,6 +137,7 @@ docker run -d \
 
 两者配合使用时，请保证前端容器能够访问后端地址（可在同一主机使用默认端口，或结合反向代理/自定义网络）。
 
+### 方法二：自行构建
 确保已安装 Docker 与 Docker Compose：
 
 ```
